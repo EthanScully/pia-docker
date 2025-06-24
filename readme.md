@@ -10,3 +10,5 @@ docker run \
     -e PASS=<password> \
     -it ethanscully/pia
 ```
+
+optional ENV var: `PROTO=openvpn`, wireguard is default

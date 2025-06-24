@@ -11,7 +11,7 @@ else
 fi
 
 apt update
-apt install curl systemctl sudo libglib2.0-0 iproute2 libatomic1 libnl-utils -y
+apt install curl systemctl sudo libglib2.0-0 iproute2 libatomic1 libnl-utils daemonize expect -y
 useradd -m -s /bin/bash pia
 usermod -aG sudo pia
 echo "pia ALL=(ALL) NOPASSWD: ALL" >>/etc/sudoers

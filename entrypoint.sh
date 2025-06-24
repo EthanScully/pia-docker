@@ -9,7 +9,11 @@ fi
 # Setup Logs
 sudo mkdir -p /var/log/pia
 # Start PIA Service as root
-LD_LIBRARY_PATH=/opt/piavpn/lib /opt/piavpn/bin/pia-daemon > /var/log/pia/pia-stdout.log 2> /var/log/pia/pia-stderr.log &
+export LD_LIBRARY_PATH="/opt/piavpn/lib:$LD_LIBRARY_PATH"
+daemonize \
+  -o /var/log/pia/pia-stdout.log \
+  -e /var/log/pia/pia-stderr.log \
+  /bin/unbuffer /opt/piavpn/bin/pia-daemon
 # create loginfile from ENV
 mkdir "$HOME/.pia"
 echo -e "$USER\n$PASS" >"$HOME/.pia/cred.txt"
@@ -39,6 +43,19 @@ while true; do
         break
     fi
     echo "failed to enable PIA port fowarding, retrying..." >&2
+    sleep 1
+done
+# change PIA protocol
+if [[ "$PROTO" == "openvpn" ]]; then
+    PROTOCOL="openvpn"
+else
+    PROTOCOL="wireguard"
+fi
+while true; do
+    if piactl set protocol "$PROTOCOL"; then
+        break
+    fi
+    echo "failed to PIA protocol to $PROTOCOL, retrying..." >&2
     sleep 1
 done
 # PIA connect
