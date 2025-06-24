@@ -11,9 +11,9 @@ sudo mkdir -p /var/log/pia
 # Start PIA Service as root
 export LD_LIBRARY_PATH="/opt/piavpn/lib:$LD_LIBRARY_PATH"
 daemonize \
-  -o /var/log/pia/pia-stdout.log \
-  -e /var/log/pia/pia-stderr.log \
-  /bin/unbuffer /opt/piavpn/bin/pia-daemon
+    -o /var/log/pia/pia-stdout.log \
+    -e /var/log/pia/pia-stderr.log \
+    /bin/unbuffer /opt/piavpn/bin/pia-daemon
 # create loginfile from ENV
 mkdir "$HOME/.pia"
 echo -e "$USER\n$PASS" >"$HOME/.pia/cred.txt"
@@ -46,11 +46,7 @@ while true; do
     sleep 1
 done
 # change PIA protocol
-if [[ "$PROTO" == "openvpn" ]]; then
-    PROTOCOL="openvpn"
-else
-    PROTOCOL="wireguard"
-fi
+PROTOCOL=${PROTO:="wireguard"}
 while true; do
     if piactl set protocol "$PROTOCOL"; then
         break
