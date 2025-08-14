@@ -2,9 +2,9 @@
 set -eu
 
 if [ "$1" = "linux/arm64" ]; then
-    PIAURL="https://installers.privateinternetaccess.com/download/pia-linux-arm64-3.6.1-08339.run"
+    PIAURL="https://installers.privateinternetaccess.com/download/pia-linux-arm64-3.6.2-08398.run"
 elif [ "$1" = "linux/amd64" ]; then
-    PIAURL="https://installers.privateinternetaccess.com/download/pia-linux-3.6.1-08339.run"
+    PIAURL="https://installers.privateinternetaccess.com/download/pia-linux-3.6.2-08398.run"
 else
     echo "Unsupported platform: $1"
     exit 1
