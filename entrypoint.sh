@@ -9,7 +9,8 @@ fi
 # Setup Logs
 sudo mkdir -p /var/log/pia
 # Start PIA Service as root
-export LD_LIBRARY_PATH="/opt/piavpn/lib:$LD_LIBRARY_PATH"
+LD_BACKUP="$LD_LIBRARY_PATH"
+LD_LIBRARY_PATH="/opt/piavpn/lib:$LD_LIBRARY_PATH"
 daemonize \
     -o /var/log/pia/pia-stdout.log \
     -e /var/log/pia/pia-stderr.log \
@@ -63,6 +64,7 @@ while true; do
     sleep 1
 done
 # Wait for PIA to fully connect
+LD_LIBRARY_PATH="$LD_BACKUP"
 while true; do
     code=$(curl -s -o /dev/null -w "%{http_code}" http://1.1.1.1/)
     if [ "$code" -eq 301 ]; then
