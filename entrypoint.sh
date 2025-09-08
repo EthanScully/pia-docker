@@ -39,14 +39,16 @@ while true; do
 done
 set -e
 # PIA Change VPN Region
-while true; do
-    if piactl set region "$REGION"; then
-        break
-    fi
-    echo "failed to set PIA region: $REGION, retrying..." >&2
-    
-    sleep 1
-done
+if [[ -n $REGION ]]; then
+    while true; do
+        if piactl set region "$REGION"; then
+            break
+        fi
+        echo "failed to set PIA region: $REGION, retrying..." >&2
+        
+        sleep 1
+    done
+fi
 # PIA Enable Port Fowarding
 while true; do
     if piactl set requestportforward true; then
