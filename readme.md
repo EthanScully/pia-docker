@@ -12,3 +12,6 @@ docker run \
 ```
 
 optional ENV var: `PROTO=openvpn`, wireguard is default
+
+optional ENV var: `REGION=auto`, auto is default
+auto doesn't seem to work very well
