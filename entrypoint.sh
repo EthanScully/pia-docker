@@ -50,13 +50,16 @@ if [[ -n $REGION ]]; then
     done
 fi
 # PIA Enable Port Fowarding
-while true; do
-    if piactl set requestportforward true; then
-        break
-    fi
-    echo "failed to enable PIA port fowarding, retrying..." >&2
-    sleep 1
-done
+PORT=${PORT:="false"}
+if [[ $PORT == "true" ]]; then
+    while true; do
+        if piactl set requestportforward true; then
+            break
+        fi
+        echo "failed to enable PIA port forwarding, retrying..." >&2
+        sleep 1
+    done
+fi
 # change PIA protocol
 PROTOCOL=${PROTO:="wireguard"}
 while true; do

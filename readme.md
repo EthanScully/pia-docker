@@ -10,8 +10,11 @@ docker run \
     -e PASS=<password> \
     -it ethanscully/pia
 ```
+>#### Manually Select Connection Protocol 
+>optional ENV var: `PROTO=openvpn`, wireguard is default
 
-optional ENV var: `PROTO=openvpn`, wireguard is default
+>#### Manually Select VPN Region Server
+>optional ENV var: `REGION=auto`, auto is default, auto doesn't seem to work very well
 
-optional ENV var: `REGION=auto`, auto is default
-auto doesn't seem to work very well
+>#### Enable Port Forwarding: 
+>optional ENV var: `PORT=true`, false is default
